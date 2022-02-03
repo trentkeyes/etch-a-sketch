@@ -1,26 +1,7 @@
-const container = document.querySelector('#container');
-const picker = document.querySelector('#colorPick');
+let container = document.querySelector('#container');
 const gridButton = document.querySelector('.gridButton');
-const square = document.querySelector('#squares')
+let square = document.getElementsByClassName('.square');
 
-
-//function resetBox() {
-gridButton.addEventListener('click', function buttonClick(e) {
-    let input = Number(prompt("How many squares per side?"));
-    if (input) {
-        containerWidth = input;
-        let containerSize = Math.pow(containerWidth, 2);
-        for (let i = 0; i < containerSize; i++) {
-            let box = container.querySelector('#squares');
-            console.log(box);
-            container.removeChild(box);
-
-        } console.log(square);
-        console.log(container);
-
-        populateBox();
-    }
-});
 function randomColor() {
     let r = Math.floor(Math.random() * 255);
     let g = Math.floor(Math.random() * 255);
@@ -36,14 +17,10 @@ function populateBox() {
 
         let divSize = 768 / containerWidth + "px";
         let square = document.createElement("div");
-        square.setAttribute("id", "squares");
-        square.style.backgroundColor = "white";
+        square.setAttribute("class", "square");
         square.style.width = divSize;
         square.style.height = divSize;
         container.appendChild(square);
-        // picker.addEventListener('input', function (e) {
-        //     e.target.value;
-        // });
         square.addEventListener('mouseover', function (e) {
             e.target.style.backgroundColor = randomColor();
 
@@ -51,5 +28,25 @@ function populateBox() {
     }
 }
 
-populateBox();
+console.log(square);
 
+populateBox();
+gridButton.addEventListener('click', function buttonClick() {
+    let input = Number(prompt("How many squares per side?"));
+    let square = document.getElementsByClassName('.square');
+    console.log(input);
+    container.removeChild(square);
+
+    containerWidth = input;
+    populateBox();
+});
+
+
+
+// if (input) {
+        //   let box = container.querySelectorAll('.squares');
+        //  console.log(box);
+        // console.log(container);
+        // while (container.firstChild) {
+        //     container.removeChild(container.firstChild);
+        //    }

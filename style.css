@@ -30,7 +30,8 @@ h1 {
     margin: 10px;
 }
 
-#squares {
+.square {
+    background-color: white;
 }
 
 #squares.hover {
