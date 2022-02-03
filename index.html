@@ -6,15 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
     <title>Etch-A-Sketch</title>
 </head>
 
 <body>
     <h1>Etch-A-Sketch</h1>
-    <button class="gridButton" name='gridSize' value='choiceMade'>Change grid size</button>
-    <!-- <label for="colorPick">Change color:</label> -->
-    <!-- <input type="color" id="colorPick" name="colorPick" value="#FFFFFF"> -->
-    <div id="container"></div>
+    <div class='panel'>
+        <!-- <input type="range" min="1" max="100" value="16" class="slider" id="myRange">-->
+        <button class="gridButton" name='gridSize' value='choiceMade'>Grid size</button>
+        <div>
+            <label for="colorPick">Paint:</label>
+            <input type="color" id="colorPick" name="colorPick" value="#000000">
+        </div>
+        <button class="rainbow" name='rainbow'>Rainbow</button>
+    </div>
+    <div class=border>
+        <div id="container"></div>
+    </div>
 
 </body>
 

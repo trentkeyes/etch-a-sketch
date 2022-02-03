@@ -1,6 +1,9 @@
 let container = document.querySelector('#container');
 const gridButton = document.querySelector('.gridButton');
-let square = document.getElementsByClassName('.square');
+const picker = document.querySelector('#colorPick');
+const rainbow = document.querySelector('.rainbow');
+
+let color = 'black';
 
 function randomColor() {
     let r = Math.floor(Math.random() * 255);
@@ -9,12 +12,15 @@ function randomColor() {
     return `rgb(${r},${g},${b})`
 }
 
-function populateBox() {
-    let containerWidth = 16;
+function blackShade(opacity) {
+    return `rgb(0, 0, 0, ${opacity})`
+}
+let counter = 1;
+function populateBox(width) {
+    let containerWidth = width;
     let containerSize = Math.pow(containerWidth, 2);
-
+    // color = randomColor();
     for (let i = 0; i < containerSize; i++) {
-
         let divSize = 768 / containerWidth + "px";
         let square = document.createElement("div");
         square.setAttribute("class", "square");
@@ -22,31 +28,35 @@ function populateBox() {
         square.style.height = divSize;
         container.appendChild(square);
         square.addEventListener('mouseover', function (e) {
-            e.target.style.backgroundColor = randomColor();
+            if (color) {
+                e.target.style.backgroundColor = color;
+            } else {
+                e.target.style.backgroundColor = randomColor();
+            }
 
         });
     }
 }
 
-console.log(square);
+populateBox(16);
 
-populateBox();
-gridButton.addEventListener('click', function buttonClick() {
-    let input = Number(prompt("How many squares per side?"));
-    let square = document.getElementsByClassName('.square');
-    console.log(input);
-    container.removeChild(square);
-
-    containerWidth = input;
-    populateBox();
+gridButton.addEventListener('click', () => {
+    let input = Number(prompt("How many squares per side? (max 100)"));
+    if (input) {
+        if (input > 100) {
+            input = 100;
+        }
+        while (container.firstChild) {
+            container.removeChild(container.firstChild)
+        }
+    }
+    populateBox(input)
 });
 
+picker.addEventListener('input', function (e) {
+    color = e.target.value;
+});
 
-
-// if (input) {
-        //   let box = container.querySelectorAll('.squares');
-        //  console.log(box);
-        // console.log(container);
-        // while (container.firstChild) {
-        //     container.removeChild(container.firstChild);
-        //    }
+rainbow.addEventListener('click', function (e) {
+    color = false;
+});
