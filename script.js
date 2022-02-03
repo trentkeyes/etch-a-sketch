@@ -2,8 +2,11 @@ let container = document.querySelector('#container');
 const gridButton = document.querySelector('.gridButton');
 const picker = document.querySelector('#colorPick');
 const rainbow = document.querySelector('.rainbow');
+const shade = document.querySelector('.shade');
+const eraser = document.querySelector('.eraser');
 
 let color = 'black';
+let shaded;
 
 function randomColor() {
     let r = Math.floor(Math.random() * 255);
@@ -12,14 +15,9 @@ function randomColor() {
     return `rgb(${r},${g},${b})`
 }
 
-function blackShade(opacity) {
-    return `rgb(0, 0, 0, ${opacity})`
-}
-let counter = 1;
 function populateBox(width) {
     let containerWidth = width;
     let containerSize = Math.pow(containerWidth, 2);
-    // color = randomColor();
     for (let i = 0; i < containerSize; i++) {
         let divSize = 768 / containerWidth + "px";
         let square = document.createElement("div");
@@ -28,20 +26,30 @@ function populateBox(width) {
         square.style.height = divSize;
         container.appendChild(square);
         square.addEventListener('mouseover', function (e) {
-            if (color) {
-                e.target.style.backgroundColor = color;
-            } else {
+            if (color == shaded && Number((e.target.style.backgroundColor)[16]) >= 1 && Number((e.target.style.backgroundColor)[16]) <= 8) {
+                let oldShade = Number((e.target.style.backgroundColor)[16]);
+                let newShade = oldShade + 1
+                e.target.style.backgroundColor = `rgba(0, 0, 0, .${newShade})`;
+                console.log(e.target.style.backgroundColor)
+            } else if (color == shaded && e.target.style.backgroundColor == 'rgba(0, 0, 0, 0.9)') {
+                e.target.style.backgroundColor = 'black';
+            } else if (color == shaded && e.target.style.backgroundColor !== 'black') {
+                e.target.style.backgroundColor = 'rgba(0, 0, 0, 0.1)'
+            } else if (color == rainbow) {
                 e.target.style.backgroundColor = randomColor();
-            }
+            } else {
+                e.target.style.backgroundColor = color;
 
+            }
+            console.log(color)
         });
     }
 }
 
-populateBox(16);
+populateBox(40);
 
 gridButton.addEventListener('click', () => {
-    let input = Number(prompt("How many squares per side? (max 100)"));
+    let input = Number(prompt("How many squares per side? (max 100) *Clears Picture*"));
     if (input) {
         if (input > 100) {
             input = 100;
@@ -58,5 +66,13 @@ picker.addEventListener('input', function (e) {
 });
 
 rainbow.addEventListener('click', function (e) {
-    color = false;
+    color = rainbow;
+});
+
+shade.addEventListener('click', function (e) {
+    color = shaded;
+});
+
+eraser.addEventListener('click', function (e) {
+    color = "white";
 });
